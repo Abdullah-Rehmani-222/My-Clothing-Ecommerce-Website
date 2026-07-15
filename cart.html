@@ -1,9 +1,17 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title>StyleRush | Cart</title>
+    <meta
+      name="description"
+      content="StyleRush cart page helps shoppers review selected fashion items, update quantities, and checkout quickly on any device with a responsive shopping experience."
+    />
+    <meta
+      name="keywords"
+      content="shopping cart, responsive cart page, checkout, fashion cart, online store cart, update quantities, order summary, clothing checkout"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StyleRush | Cart</title>
 
     <link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico" />
     <link
@@ -66,7 +74,7 @@
     <script src="./JAVASCRIPT/addItem.js" defer></script>
   </head>
   <body>
-  <div class="header-container">
+    <div class="header-container">
       <div class="announcement-slider">
         <div class="slider-track">
           <div class="slide">🚚 Free shipping on orders over $50!</div>
@@ -150,23 +158,24 @@
       <button class="cross">&#10005;</button>
     </div>
 
-    <section id="cart" class="cart-section">
-      <div class="cart-container">
-        <h1>My Cart</h1>
-        <div class="items-detail">
-          <p>Product</p>
+    <div class="cart-page-container">
+      <section id="cart" class="cart-section">
+        <div class="cart-container">
+          <h1>My Cart</h1>
+          <div class="items-detail">
+            <p>Product</p>
 
-          <div class="sub-detail">
-            <p>Quantity</p>
+            <div class="sub-detail">
+              <p>Quantity</p>
+            </div>
+
+            <div class="sub-detail-02">
+              <p>Total</p>
+            </div>
           </div>
 
-          <div class="sub-detail-02">
-            <p>Total</p>
-          </div>
-        </div>
-
-        <div class="cart-items">
-          <!-- <div id="item-1" class="cart-item">
+          <div class="cart-items">
+            <!-- <div id="item-1" class="cart-item">
             <div class="product-quantity-container">
 
             <div class="product-info">
@@ -198,13 +207,40 @@
             <span class="total">$39.99</span>
           </div>
         </div> -->
+          </div>
+        </div>
+      </section>
 
-      </div>
-    </section>
+      <section class="order-summary-container">
+        <h3 class="order-summary-title">Order Summary</h3>
+        <p class="order-summary-para">Your order is eligible for free delivery.</p>
+        <div class="pricing-container">
+          <div class="subtotal-container">
+            <p>Subtotal</p>
+            <span class="subtotal-amount">$0.00</span>
+          </div>
+          <div class="savings">
+            <p>You Saved</p>
+            <span class="savings-amount">$0.00</span>
+          </div>
+          <div class="shipping">
+            <p>Shipping</p>
+            <span class="shipping-amount">Free</span>
+          </div>
+        </div>
 
-  <button id="addButton" class="add-to-cart-button"></button>
+        <div class="total-container">
+          <h4>Total</h4>
+          <span class="total-amount">$0.00</span>
+        </div>
 
-  <div class="overlay" onclick="toggleMenu()"></div>
+        <button class="checkout-button">Proceed to Checkout</button>
+      </section>
+    </div>
+
+    <button id="addButton" class="add-to-cart-button"></button>
+
+    <div class="overlay" onclick="toggleMenu()"></div>
 
     <div class="menu">
       <div class="menu-logo-container">
@@ -219,7 +255,8 @@
 
         <a href="#" class="dropdown-trigger">
           <div class="link-container">
-            <span> New Arrivals </span> <i class="fa-solid fa-angle-right arrow"></i>
+            <span> New Arrivals </span>
+            <i class="fa-solid fa-angle-right arrow"></i>
           </div>
           <div class="dropdown-menu">
             <a href="#">Men</a>
@@ -273,73 +310,78 @@
       </div>
 
       <div class="social-links-container">
-        <a href="#" class="link"><i class="fa-solid fa-circle-user"></i> <span>Sign In</span></a>
-        <a href="" class="link"><i class="fa-brands fa-facebook"></i> <span>Facebook</span></a>
-        <a href="" class="link"><i class="fa-solid fa-phone"></i> <span>Contact Us</span></a>
+        <a href="#" class="link"
+          ><i class="fa-solid fa-circle-user"></i> <span>Sign In</span></a
+        >
+        <a href="" class="link"
+          ><i class="fa-brands fa-facebook"></i> <span>Facebook</span></a
+        >
+        <a href="" class="link"
+          ><i class="fa-solid fa-phone"></i> <span>Contact Us</span></a
+        >
       </div>
     </div>
 
     <footer class="footer">
-    <div class="upper-content">
-      <div class="footer-section">
-        <h1>Shop</h1>
-        <div class="footer-links">
-          <a href="#">Menswears</a>
-          <a href="#">Womenswears</a>
-          <a href="#">Kidswears</a>
+      <div class="upper-content">
+        <div class="footer-section">
+          <h1>Shop</h1>
+          <div class="footer-links">
+            <a href="#">Menswears</a>
+            <a href="#">Womenswears</a>
+            <a href="#">Kidswears</a>
+          </div>
+        </div>
+
+        <div class="footer-section about-us">
+          <h1>About Us</h1>
+          <div class="footer-links">
+            <a href="#">Our Story</a>
+            <a href="#">What Makes Us Different</a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h1>Connect</h1>
+          <div class="footer-links">
+            <a
+              href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
+              target="_blank"
+              >LinkedIn</a
+            >
+            <a
+              href="https://www.facebook.com/profile.php?id=61583532714796"
+              target="_blank"
+              >Facebook</a
+            >
+            <a href="https://theabdullahrehmani.netlify.app/" target="_blank"
+              >Portfolio</a
+            >
+          </div>
         </div>
       </div>
-
-      <div class="footer-section about-us">
-        <h1>About Us</h1>
-        <div class="footer-links">
-          <a href="#">Our Story</a>
-          <a href="#">What Makes Us Different</a>
+      <div class="lower-content">
+        <div class="signature-container">
+          <img src="images/my-logo_light.png" alt="light-logo" />
+          <p>Abdullah Farooq</p>
         </div>
-      </div>
-
-      <div class="footer-section">
-        <h1>Connect</h1>
-        <div class="footer-links">
+        <p class="copyright-notice">&copy; 2026 Style Rush.</p>
+        <div class="links">
           <a
             href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
             target="_blank"
-            >LinkedIn</a
-          >
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
           <a
             href="https://www.facebook.com/profile.php?id=61583532714796"
             target="_blank"
-            >Facebook</a
-          >
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
           <a href="https://theabdullahrehmani.netlify.app/" target="_blank"
-            >Portfolio</a
-          >
+            ><i class="fa-solid fa-globe"></i
+          ></a>
         </div>
       </div>
-    </div>
-    <div class="lower-content">
-      <div class="signature-container">
-        <img src="images/my-logo_light.png" alt="light-logo" />
-        <p>Abdullah Farooq</p>
-      </div>
-      <p class="copyright-notice">&copy; 2026 Style Rush.</p>
-      <div class="links">
-        <a
-          href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
-          target="_blank"
-          ><i class="fa-brands fa-linkedin-in"></i
-        ></a>
-        <a
-          href="https://www.facebook.com/profile.php?id=61583532714796"
-          target="_blank"
-          ><i class="fa-brands fa-facebook-f"></i
-        ></a>
-        <a href="https://theabdullahrehmani.netlify.app/" target="_blank"
-          ><i class="fa-solid fa-globe"></i
-        ></a>
-      </div>
-    </div>
-  </footer>
-
+    </footer>
   </body>
 </html>

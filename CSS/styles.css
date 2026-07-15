@@ -11,7 +11,7 @@
   --text-color: #333;
   --second-logo-color: rgba(40, 68, 68, 0.623);
   --another-text-color: #f4f4f4;
-  --button-hover-color: #ffffff49;
+  --button-hover-color: #130303a1;
   --button-hover-secondary-color: #130202a6;
   --background-color: #fff;
   --filter-bg-color: #c2d3d3;
@@ -25,7 +25,8 @@
 html,
 body {
   font-family: var(--font-family);
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
+  background-color: #EAEDED;
   color: var(--text-color);
   height: 100vh;
   width: 100%;
@@ -38,8 +39,11 @@ body {
   right: 0;
   z-index: 999;
   /* background-color: var(--background-color); */
+  /* background-color: var(--header-bg-color); */
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .announcement-slider {
@@ -177,8 +181,8 @@ nav .nav_02 .search {
 }
 
 .nav_03 .cart:hover {
-  /* background-color: #0000003d; */
-  background-color: #ffffff2d;
+  background-color: #0000003d;
+  /* background-color: #ffffff2d; */
   border-radius: 6px;
 }
 
@@ -410,7 +414,7 @@ nav .nav_02 .search {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 148px;
+  margin-top: 170px;
 }
 
 .section-01 .hero {
@@ -507,8 +511,10 @@ nav .nav_02 .search {
   gap: 30px;
   padding: 10px 0 0;
   /* width: 90%; */
+  background-color: var(--background-color);
+  border-radius: 10px;
   width: 100%;
-  border-bottom: 1px solid var(--nav-bottom-border-color);
+  /* border-bottom: 1px solid var(--nav-bottom-border-color); */
   padding-bottom: 20px;
 }
 
@@ -519,6 +525,7 @@ nav .nav_02 .search {
   align-items: center;
   /* padding-left: 30px; */
   padding-bottom: 10px;
+  margin-top: 20px;
 }
 
 .category-heading h2 {
@@ -1102,7 +1109,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 170px;
+    margin-top: 210px;
   }
 
   .section-01 .hero {
@@ -1434,7 +1441,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 170px;
+    margin-top: 210px;
   }
 
   .section-01 .hero {
@@ -1773,7 +1780,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 175px;
+    margin-top: 215px;
   }
 
   .section-01 .hero {
@@ -2021,7 +2028,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 175px;
+    margin-top: 215px;
   }
 
   .section-01 .hero {
@@ -2178,7 +2185,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 175px;
+    margin-top: 215px;
   }
 
   .section-01 .hero {
@@ -2309,7 +2316,7 @@ nav .nav_02 .search {
   }
 
   .section-01 {
-    margin-top: 175px;
+    margin-top: 215px;
   }
 
   .section-01 .hero {

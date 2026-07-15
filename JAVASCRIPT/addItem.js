@@ -4,8 +4,9 @@
 let addItemButtons = document.querySelectorAll(".add-to-cart-button");
 let productImages = document.querySelectorAll(".main-product-image");
 let productTitles = document.querySelectorAll(".product-title");
-let productCategories = document.querySelectorAll(".product-category");
+// let productCategories = document.querySelectorAll(".product-category");
 let prices = document.querySelectorAll(".current-price");
+let orderSummaryContainer = document.querySelector(".order-summary-container");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let count = cart.length;
@@ -40,7 +41,7 @@ addItemButtons.forEach((button, index) => {
     let product = {
       image: productImages[index]?.src,
       title: productTitles[index]?.textContent,
-      category: productCategories[index]?.textContent,
+      // category: productCategories[index]?.textContent,
       price: prices[index]?.textContent,
     };
 
@@ -74,8 +75,6 @@ function createCartItem(item) {
   itemDetails.classList.add("item-details");
   let productDescription = document.createElement("p");
   productDescription.classList.add("product-description");
-  let size = document.createElement("span");
-  size.classList.add("size");
   let subDetail = document.createElement("div");
   subDetail.classList.add("sub-detail");
   let price = document.createElement("span");
@@ -115,12 +114,12 @@ function createCartItem(item) {
 
   // Adding further Functionalities:
 
-  // Category logic:
-  if (item.category == "MENSWEAR") {
-    size.textContent = "M";
-  } else {
-    size.textContent = "W";
-  }
+  // // Category logic:
+  // if (item.category == "MENSWEAR") {
+  //   size.textContent = "M";
+  // } else {
+  //   size.textContent = "W";
+  // }
 
   // Appenchilding the element to eachother:
   cartItemsContainer.appendChild(cartItem);
@@ -135,7 +134,6 @@ function createCartItem(item) {
   imageContainer.appendChild(image);
   productInfo.appendChild(itemDetails);
   itemDetails.appendChild(productDescription);
-  itemDetails.appendChild(size);
   itemDetails.appendChild(price);
 
   // SubDetail Appendchild:
@@ -155,8 +153,10 @@ function createCartItem(item) {
 let savedCart = JSON.parse(localStorage.getItem("cart")) || [];
 if (savedCart.length === 0) {
   cartItemsContainer.innerHTML = `<p class="message">Items not added yet.</p>`;
+  // orderSummaryContainer.style.display = "none";
 } else {
   cartItemsContainer.innerHTML = "";
+  // orderSummaryContainer.style.display = "flex"
 }
 
 loadCartItems();
@@ -207,40 +207,39 @@ let increaseButtons = document.querySelectorAll(".increase-btn");
 let decreaseButtons = document.querySelectorAll(".decrease-btn");
 
 // Count increase decrease Logic:
+let counts = 1;
 increaseButtons.forEach((button, index) => {
-  let count = 1;
   let price = pricess[index].textContent;
   let newprice = Number(price.replace("$", ""));
 
   button.addEventListener("click", () => {
-    count++;
-    quantities[index].textContent = `${count}`;
+    counts++;
+    quantities[index].textContent = `${counts}`;
     if (Number(quantities[index].textContent) > 1) {
-      totals[index].textContent = `$${newprice * count}`;
+      totals[index].textContent = `$${newprice * counts}`;
     } else {
-      quantities[index].textContent = `${count}`;
+      quantities[index].textContent = `${counts}`;
     }
   });
 });
 
 decreaseButtons.forEach((button, index) => {
-  let count = 1;
   let price = pricess[index].textContent;
   let newprice = Number(price.replace("$", ""));
   button.addEventListener("click", () => {
-    if (count <= 0 || count == 1) {
-      count;
+    if (counts <= 0 || counts == 1) {
+      counts;
     } else {
-      count--;
+      counts--;
     }
-    quantities[index].textContent = `${count}`;
+    quantities[index].textContent = `${counts}`;
     if (
       Number(quantities[index].textContent) < 120 &&
       Number(quantities[index].textContent) > 0
     ) {
-      totals[index].textContent = `$${newprice / count}`;
+      totals[index].textContent = `$${newprice / counts}`;
     } else {
-      quantities[index].textContent = `${count}`;
+      quantities[index].textContent = `${counts}`;
     }
   });
 });

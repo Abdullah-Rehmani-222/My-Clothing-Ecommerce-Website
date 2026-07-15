@@ -11,7 +11,7 @@
   --text-color: #333;
   --second-logo-color: rgba(40, 68, 68, 0.623);
   --another-text-color: #f4f4f4;
-  --button-hover-color: #ffffff49;
+  --button-hover-color: #130303a1;
   --button-hover-secondary-color: #130202a6;
   --background-color: #fff;
   --filter-bg-color: #c2d3d3;
@@ -21,7 +21,6 @@
   /* Typography */
   --font-family: "Poppins", sans-serif;
 }
-
 
 html,
 body {
