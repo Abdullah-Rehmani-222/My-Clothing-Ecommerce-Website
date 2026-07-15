@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StyleRush | Cart</title>
+
+    <link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicon_io/favicon-16x16.png"
+    />
+    <link rel="manifest" href="images/favicon_io/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css"
+      integrity="sha512-M5Kq4YVQrjg5c2wsZSn27Dkfm/2ALfxmun0vUE3mPiJyK53hQBHYCVAtvMYEC7ZXmYLg8DVG4tF8gD27WmDbsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/solid.min.css"
+      integrity="sha512-EHa6vH03/Ty92WahM0/tet1Qicl76zihDCkBnFhN3kFGQkC+mc86d7V+6y2ypiLbk3h0beZAGdUpzfMcb06cMg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/regular.min.css"
+      integrity="sha512-x3gns+l9p4mIK7vYLOCUoFS2P1gavFvnO9Its8sr0AkUk46bgf9R51D8xeRUwCSk+W93YbXWi19BYzXDNBH5SA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/brands.min.css"
+      integrity="sha512-WxpJXPm/Is1a/dzEdhdaoajpgizHQimaLGL/QqUIAjIihlQqlPQb1V9vkGs9+VzXD7rgI6O+UsSKl4u5K36Ydw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./CSS/styles.css" />
+    <link rel="stylesheet" href="./CSS/cart.css" />
+    <script src="./JAVASCRIPT/cart.js" defer></script>
+    <script src="./JAVASCRIPT/addItem.js" defer></script>
+  </head>
+  <body>
+  <div class="header-container">
+      <div class="announcement-slider">
+        <div class="slider-track">
+          <div class="slide">🚚 Free shipping on orders over $50!</div>
+          <div class="slide">
+            🎉 Use code FIRST10 for 10% off your first order!
+          </div>
+          <div class="slide">
+            ⏱️ Flash Sale! 20% off all summer items today only.
+          </div>
+        </div>
+      </div>
+
+      <header>
+        <nav>
+          <div class="nav_01">
+            <div class="logo">
+              <img src="images/my-logo_dark.png" alt="" />
+              <a href="./index.html">Style<span id="second_logo">Rush</span></a>
+            </div>
+          </div>
+
+          <div class="nav_02">
+            <div class="search">
+              <input
+                type="text"
+                id="search-bar"
+                placeholder="Search for products..."
+              />
+              <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="nav_03">
+            <div class="cart">
+              <a href="./cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-counter"></span>
+              </a>
+            </div>
+
+            <div class="register">
+              <a href="#">Register</a>
+            </div>
+
+            <div class="menu-bar menu-trigger" onclick="toggleMenu()">
+              <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </div>
+
+    <section id="empty-cart" class="empty-cart-section">
+      <div class="empty-cart-container">
+        <div class="cart-icon">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="eye-01"></span>
+          <span class="eye-02"></span>
+          <span class="mouth"></span>
+        </div>
+
+        <div class="empty-cart-message">
+          <h2>Your cart is empty?</h2>
+          <p>
+            Have an account?
+            <a id="login-link" href="./login.html">Log in</a> to check out
+            faster.
+          </p>
+          <a id="register-link" href="./register.html">Register Now!</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast-notification">
+      <div class="right-side">
+        <i class="fa-solid fa-circle-check tick"></i>
+        <p>Your item has been deleted.</p>
+      </div>
+      <button class="cross">&#10005;</button>
+    </div>
+
+    <section id="cart" class="cart-section">
+      <div class="cart-container">
+        <h1>My Cart</h1>
+        <div class="items-detail">
+          <p>Product</p>
+
+          <div class="sub-detail">
+            <p>Quantity</p>
+          </div>
+
+          <div class="sub-detail-02">
+            <p>Total</p>
+          </div>
+        </div>
+
+        <div class="cart-items">
+          <!-- <div id="item-1" class="cart-item">
+            <div class="product-quantity-container">
+
+            <div class="product-info">
+              <div class="image-container">
+                <img src="images/mens-wear_image_01.png" alt="product-image" />
+              </div>
+              <div class="item-details">
+                <span> <i class="fa-solid fa-star star"></i> 4.5</span>
+                <p class="product-description">
+                  Men's Formal Suit
+                </p>
+                <span class="size">M</span>
+                <span class="price">$39.99</span>
+              </div>
+            </div>
+
+            <div class="sub-detail">
+              <div class="quantity-control">
+                <button class="btn decrease-btn">-</button>
+                <span class="quantity">1</span>
+                <button class="btn increase-btn">+</button>
+              </div>
+              <button class="remove-btn"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+
+            </div>
+
+          <div class="sub-detail-02">
+            <span class="total">$39.99</span>
+          </div>
+        </div> -->
+
+      </div>
+    </section>
+
+  <button id="addButton" class="add-to-cart-button"></button>
+
+  <div class="overlay" onclick="toggleMenu()"></div>
+
+    <div class="menu">
+      <div class="menu-logo-container">
+        <span class="menu-logo">Menu</span>
+        <button class="close-icon" onclick="toggleMenu()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="menu-nav">
+        <a href="index.html" class="dropdown-trigger"> <span> Home </span> </a>
+
+        <a href="#" class="dropdown-trigger">
+          <div class="link-container">
+            <span> New Arrivals </span> <i class="fa-solid fa-angle-right arrow"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">Kids</a>
+          </div>
+        </a>
+
+        <a href="#" class="dropdown-trigger">
+          <div class="link-container">
+            <span> Men </span> <i class="fa-solid fa-angle-right arrow"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="#">Stitched</a>
+            <a href="#">Unstitched</a>
+            <a href="#">Eastern</a>
+          </div>
+        </a>
+
+        <a href="#" class="dropdown-trigger">
+          <div class="link-container">
+            <span> Women </span> <i class="fa-solid fa-angle-right arrow"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="#">Stitched</a>
+            <a href="#">Unstitched</a>
+            <a href="#">Eastern</a>
+          </div>
+        </a>
+
+        <a href="#" class="dropdown-trigger">
+          <div class="link-container">
+            <span> Kids </span> <i class="fa-solid fa-angle-right arrow"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="#">Boy</a>
+            <a href="#">Girl</a>
+          </div>
+        </a>
+
+        <a href="#" class="dropdown-trigger">
+          <div class="link-container">
+            <span> Collections </span>
+            <i class="fa-solid fa-angle-right arrow"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="#">Summer</a>
+            <a href="#">Winter</a>
+          </div>
+        </a>
+      </div>
+
+      <div class="social-links-container">
+        <a href="#" class="link"><i class="fa-solid fa-circle-user"></i> <span>Sign In</span></a>
+        <a href="" class="link"><i class="fa-brands fa-facebook"></i> <span>Facebook</span></a>
+        <a href="" class="link"><i class="fa-solid fa-phone"></i> <span>Contact Us</span></a>
+      </div>
+    </div>
+
+    <footer class="footer">
+    <div class="upper-content">
+      <div class="footer-section">
+        <h1>Shop</h1>
+        <div class="footer-links">
+          <a href="#">Menswears</a>
+          <a href="#">Womenswears</a>
+          <a href="#">Kidswears</a>
+        </div>
+      </div>
+
+      <div class="footer-section about-us">
+        <h1>About Us</h1>
+        <div class="footer-links">
+          <a href="#">Our Story</a>
+          <a href="#">What Makes Us Different</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h1>Connect</h1>
+        <div class="footer-links">
+          <a
+            href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a
+            href="https://www.facebook.com/profile.php?id=61583532714796"
+            target="_blank"
+            >Facebook</a
+          >
+          <a href="https://theabdullahrehmani.netlify.app/" target="_blank"
+            >Portfolio</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="lower-content">
+      <div class="signature-container">
+        <img src="images/my-logo_light.png" alt="light-logo" />
+        <p>Abdullah Farooq</p>
+      </div>
+      <p class="copyright-notice">&copy; 2026 Style Rush.</p>
+      <div class="links">
+        <a
+          href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
+          target="_blank"
+          ><i class="fa-brands fa-linkedin-in"></i
+        ></a>
+        <a
+          href="https://www.facebook.com/profile.php?id=61583532714796"
+          target="_blank"
+          ><i class="fa-brands fa-facebook-f"></i
+        ></a>
+        <a href="https://theabdullahrehmani.netlify.app/" target="_blank"
+          ><i class="fa-solid fa-globe"></i
+        ></a>
+      </div>
+    </div>
+  </footer>
+
+  </body>
+</html>
