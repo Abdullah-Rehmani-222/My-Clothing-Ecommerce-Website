@@ -363,7 +363,6 @@ const AdminPanel = () => {
                   <span className="ap-sidebar__counter">{productsList.length}</span>
                 )}
               </button>
-              <div className="ap-sidebar__total-counter-container"><span className="ap-sidebar__total-counter">{statTotal}</span></div>
             </nav>
 
             <h3 className="ap-sidebar__heading ap-sidebar__heading--sub">

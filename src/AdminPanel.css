@@ -221,26 +221,6 @@
   color: var(--accent);
 }
 
-.ap-sidebar__total-counter-container {
-  position: absolute;
-  right: 30%;
-  top: 76.7%;
-}
-
-.ap-sidebar__total-counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-
 /* Sidebar mobile toggle */
 .ap-sidebar-toggle {
   display: none;
