@@ -285,7 +285,7 @@ const AdminPanel = () => {
   const showSubCategory = subCategoryOptions.length > 0;
 
   return (
-    <>
+    <div className="ap-wrapper">
       {/* ══════════════════════════════════════════
          HEADER
       ══════════════════════════════════════════ */}
@@ -1075,7 +1075,7 @@ const AdminPanel = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

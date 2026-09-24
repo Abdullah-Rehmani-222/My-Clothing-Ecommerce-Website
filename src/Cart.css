@@ -46,6 +46,7 @@ body {
   justify-content: center;
   height: 550px;
   text-align: center;
+  margin-top: 90px;
 }
 
 .empty-cart-section .empty-cart-container {
@@ -94,6 +95,13 @@ body {
   border-radius: 50% 50% 0 0;
   top: 35%;
   left: 40%;
+}
+
+.empty-cart-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .empty-cart-container .empty-cart-message p #login-link {
@@ -865,6 +873,16 @@ img {
 @media (min-width: 260px) and (max-width: 420px) {
   header {
     padding: 14px 12px 12px;
+  }
+
+  .empty-cart-section {
+    height: 480px;
+    margin-top: 150px;
+  }
+
+  .empty-cart-message p {
+    width: 90%;
+    color: var(--primary-color);
   }
 
   .cart-page-container {

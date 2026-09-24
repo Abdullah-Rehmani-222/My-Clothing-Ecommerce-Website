@@ -1,5 +1,6 @@
 import React from "react";
-import Logo from "../assets/my-logo_light.png"
+import Logo from "../assets/my-logo_light.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -22,9 +23,10 @@ const Footer = () => {
             <div className="footer-section">
               <h1>Shop</h1>
               <div className="footer-links">
-                <a href="#">Menswears</a>
-                <a href="#">Womenswears</a>
-                <a href="#">Kidswears</a>
+                <Link to="/men">Menswear</Link>
+                <Link to="/women">Womenswear</Link>
+                <Link to="/kids">Kidswear</Link>
+                <Link to="/collections">Collections</Link>
               </div>
             </div>
 
@@ -34,18 +36,21 @@ const Footer = () => {
                 <a
                   href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   LinkedIn
                 </a>
                 <a
                   href="https://www.facebook.com/profile.php?id=61583532714796"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Facebook
                 </a>
                 <a
                   href="https://theabdullahrehmani.netlify.app/"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Portfolio
                 </a>
@@ -70,16 +75,18 @@ const Footer = () => {
             <a
               href="https://www.linkedin.com/in/abdullah-farooq-rehmani-257452249/"
               target="_blank"
+              rel="noreferrer"
             >
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
             <a
               href="https://www.facebook.com/profile.php?id=61583532714796"
               target="_blank"
+              rel="noreferrer"
             >
               <i className="fa-brands fa-facebook-f"></i>
             </a>
-            <a href="https://theabdullahrehmani.netlify.app/" target="_blank">
+            <a href="https://theabdullahrehmani.netlify.app/" target="_blank" rel="noreferrer">
               <i className="fa-solid fa-globe"></i>
             </a>
           </div>

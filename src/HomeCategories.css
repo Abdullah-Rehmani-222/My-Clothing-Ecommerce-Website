@@ -1,0 +1,222 @@
+/* ==========================================================================
+   HOME PAGE CATEGORIZED SECTIONS STYLES — HomeCategories.css
+   ========================================================================== */
+.home-categories-wrap {
+  /* max-width: 1320px; */
+  /* margin: 0 auto; */
+  padding: 36px 24px 60px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.home-cat-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 32px 36px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.home-cat-section:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+.home-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #f0f0f0;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.home-cat-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.home-cat-icon {
+  font-size: 1.35rem;
+  color: #111111;
+  background: #f4f4f5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e4e4e7;
+}
+
+.home-cat-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.3px;
+  margin: 0;
+  font-family: inherit;
+}
+
+.home-cat-count-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555555;
+  background: #f0f0f2;
+  padding: 4px 12px;
+  border-radius: 14px;
+  letter-spacing: 0.2px;
+}
+
+.home-cat-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #111111;
+  text-decoration: none;
+  padding: 9px 22px;
+  border: 1.5px solid #111111;
+  border-radius: 25px;
+  background-color: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.home-cat-view-all:hover {
+  background-color: #111111;
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.home-cat-view-all i {
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+.home-cat-view-all:hover i {
+  transform: translateX(3px);
+}
+
+.home-cat-empty {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fafafa;
+  border-radius: 12px;
+  color: #666666;
+  border: 1px dashed #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-cat-empty__icon {
+  font-size: 2rem;
+  color: #cccccc;
+  margin-bottom: 4px;
+}
+
+.home-cat-empty__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333333;
+  margin: 0;
+}
+
+.home-cat-empty__sub {
+  font-size: 0.83rem;
+  color: #999999;
+  margin: 0;
+}
+
+.home-cat-empty__link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #111111;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.home-cat-empty__link:hover {
+  color: #555555;
+}
+
+/* ==========================================================================
+   SIDEBAR CATEGORY ICONS STYLES
+   ========================================================================== */
+.link-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.sidebar-cat-icon {
+  font-size: 1.1rem;
+  width: 22px;
+  text-align: center;
+  color: #222222;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.subcat-link-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subcat-icon {
+  font-size: 0.9rem;
+  width: 18px;
+  text-align: center;
+  color: #666666;
+  transition: color 0.2s ease;
+}
+
+.dropdown-menu a:hover .subcat-icon {
+  color: #111111;
+}
+
+.link-container:hover .sidebar-cat-icon {
+  transform: scale(1.15);
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .home-categories-wrap {
+    padding: 20px 14px 44px 14px;
+    gap: 32px;
+  }
+
+  .home-cat-section {
+    padding: 20px 18px 24px 18px;
+    border-radius: 14px;
+  }
+
+  .home-cat-title {
+    font-size: 1.25rem;
+  }
+
+  .home-cat-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  .home-cat-view-all {
+    padding: 7px 16px;
+    font-size: 0.82rem;
+  }
+}

@@ -1,10 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
+import "./HomeCategories.css"
+
+// ── Pages ──
 import Home from "./Pages/Home.jsx";
 import Cart from "./Pages/Cart.jsx";
 import ProductDetail from "./Pages/ProductDetail.jsx";
 import AdminPanel from "./Pages/AdminPanel.jsx";
+import CategoryPageWrapper from "./Pages/CategoryPageWrapper.jsx";
+
+// ─── Scroll to top helper on route change ────────────────────────────────
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 // ─── Session-storage helpers ───────────────────────────────────────────────
 const SESSION_KEY = "sr_cart";
@@ -23,19 +36,16 @@ function saveCart(items) {
 // ───────────────────────────────────────────────────────────────────────────
 
 const App = () => {
-  // ── Cart state (source of truth) ──────────────────────────────────────
+  const location = useLocation();
   const [cartItems, setCartItems] = useState(() => loadCart());
 
-  // Keep sessionStorage in sync whenever cartItems changes
   useEffect(() => {
     saveCart(cartItems);
   }, [cartItems]);
 
-  // Derived count for Navbar badge
   const count   = cartItems.length;
   const isCount = count > 0;
 
-  // Add a product to the cart
   const addToCart = (product) => {
     setCartItems((prev) => {
       const updated = [
@@ -52,12 +62,10 @@ const App = () => {
     });
   };
 
-  // Remove a cart item by its index
   const removeFromCart = (index) => {
     setCartItems((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ── Menu ─────────────────────────────────────────────────────────────
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
@@ -71,7 +79,6 @@ const App = () => {
     return () => document.body.classList.remove("no-scroll");
   }, [isMenuOpen]);
 
-  // ── Toast ─────────────────────────────────────────────────────────────
   const [isToast, setIsToast]         = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -89,40 +96,6 @@ const App = () => {
     }
   }, [isToast]);
 
-  /* ─────────────────────────────────────────────────────────────────────
-     Admin panel product schema (unchanged)
-  ───────────────────────────────────────────────────────────────────── */
-  const product = {
-    id: "",
-    title: "",
-    category: "",
-    page: "",
-    price: "",
-    originalPrice: "",
-    sku: "",
-    barcode: "",
-    availability: "",
-    stockCount: "",
-    descDesign: "",
-    descColor: "",
-    descFabric: "",
-    detailHeading: "",
-    detailBody: "",
-    sub1Heading: "",
-    sub1Body: "",
-    sub2Heading: "",
-    sub2Body: "",
-    disclaimer: "",
-    colors: "",
-    sizes: "",
-    fabrics: "",
-    instBadge: "",
-    instAmount: "",
-    imageDataUrl: "",
-    createdAt: 0,
-  };
-
-  // Shared props bundle to avoid repeating props on every route
   const commonProps = {
     count,
     isCount,
@@ -136,16 +109,12 @@ const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              {...commonProps}
-              addToCart={addToCart}
-            />
-          }
-        />
+      <ScrollToTop />
+      <Routes location={location} key={location.pathname}>
+        {/* ── Home ── */}
+        <Route path="/" element={<Home {...commonProps} addToCart={addToCart} />} />
+
+        {/* ── Cart ── */}
         <Route
           path="/cart"
           element={
@@ -156,6 +125,8 @@ const App = () => {
             />
           }
         />
+
+        {/* ── Product Detail ── */}
         <Route
           path="/product"
           element={
@@ -163,7 +134,7 @@ const App = () => {
               {...commonProps}
               NavName={""}
               addToCart={addToCart}
-              setCount={() => {}} // kept for compatibility; count is derived
+              setCount={() => {}}
             />
           }
         />
@@ -178,7 +149,15 @@ const App = () => {
             />
           }
         />
+
+        {/* ── Admin Panel ── */}
         <Route path="/admin" element={<AdminPanel />} />
+
+        {/* ── Dynamic Category & Subcategory Route Template ── */}
+        <Route
+          path="/:category/:subcategory?"
+          element={<CategoryPageWrapper {...commonProps} addToCart={addToCart} />}
+        />
       </Routes>
     </>
   );

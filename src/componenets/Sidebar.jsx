@@ -22,19 +22,91 @@ const Sidebar = ({ isOpen, toggleMenu }) => {
         </div>
 
         <div className="menu-nav">
-          <Link to="/" className="dropdown-trigger">
-            {" "}
-            <span> Home </span>{" "}
+          {/* Home Nav Link */}
+          <Link to="/" className="dropdown-trigger" onClick={toggleMenu}>
+            <div className="link-container">
+              <span className="link-title-wrap">
+                <i className="fa-solid fa-house sidebar-cat-icon"></i>
+                <span>Home</span>
+              </span>
+            </div>
           </Link>
-          <DropdownTrigger linkName={"New Arrivals"} categoryA={"Men"} categoryB={"Women"} categoryC={"Kids"} trigger={() => toggleDropdown("New Arrivals")} isDropdown={activeDropdown === "New Arrivals"}/>
-          <DropdownTrigger linkName={"Men"} categoryA={"Stitched"} categoryB={"Unstitched"} categoryC={"Eastern"} trigger={() => toggleDropdown("Men")} isDropdown={activeDropdown === "Men"}/>
-          <DropdownTrigger linkName={"Women"} categoryA={"Stitched"} categoryB={"Unstitched"} categoryC={"Eastern"} trigger={() => toggleDropdown("Women")} isDropdown={activeDropdown === "Women"}/>
-          <DropdownTrigger linkName={"Kids"} categoryA={"Boy"} categoryB={"Girl"} trigger={() => toggleDropdown("Kids")} isDropdown={activeDropdown === "Kids"}/>
-          <DropdownTrigger linkName={"Collections"} categoryA={"Summer"} categoryB={"Winter"} trigger={() => toggleDropdown("Collections")} isDropdown={activeDropdown === "Collections"}/>
+
+          {/* New Arrivals */}
+          <DropdownTrigger
+            icon="fa-solid fa-fire"
+            linkName={"New Arrivals"}
+            linkPath={"new-arrivals"}
+            categoryA={"Men"}
+            categoryAIcon={"fa-solid fa-person"}
+            categoryB={"Women"}
+            categoryBIcon={"fa-solid fa-person-dress"}
+            categoryC={"Kids"}
+            categoryCIcon={"fa-solid fa-child"}
+            trigger={() => toggleDropdown("New Arrivals")}
+            isDropdown={activeDropdown === "New Arrivals"}
+            toggleMenu={toggleMenu}
+          />
+
+          {/* Men */}
+          <DropdownTrigger
+            icon="fa-solid fa-person"
+            linkName={"Men"}
+            linkPath={"men"}
+            categoryA={"Stitched"}
+            categoryAIcon={"fa-solid fa-shirt"}
+            categoryB={"Unstitched"}
+            categoryBIcon={"fa-solid fa-scissors"}
+            trigger={() => toggleDropdown("Men")}
+            isDropdown={activeDropdown === "Men"}
+            toggleMenu={toggleMenu}
+          />
+
+          {/* Women */}
+          <DropdownTrigger
+            icon="fa-solid fa-person-dress"
+            linkName={"Women"}
+            linkPath={"women"}
+            categoryA={"Stitched"}
+            categoryAIcon={"fa-solid fa-vest"}
+            categoryB={"Unstitched"}
+            categoryBIcon={"fa-solid fa-scroll"}
+            trigger={() => toggleDropdown("Women")}
+            isDropdown={activeDropdown === "Women"}
+            toggleMenu={toggleMenu}
+          />
+
+          {/* Kids */}
+          <DropdownTrigger
+            icon="fa-solid fa-child"
+            linkName={"Kids"}
+            linkPath={"kids"}
+            categoryA={"Boy"}
+            categoryAIcon={"fa-solid fa-child-reaching"}
+            categoryB={"Girl"}
+            categoryBIcon={"fa-solid fa-child-dress"}
+            trigger={() => toggleDropdown("Kids")}
+            isDropdown={activeDropdown === "Kids"}
+            toggleMenu={toggleMenu}
+          />
+
+          {/* Collections */}
+          <DropdownTrigger
+            icon="fa-solid fa-layer-group"
+            linkName={"Collections"}
+            linkPath={"collections"}
+            categoryA={"Summer"}
+            categoryAIcon={"fa-solid fa-sun"}
+            categoryB={"Winter"}
+            categoryBIcon={"fa-solid fa-snowflake"}
+            trigger={() => toggleDropdown("Collections")}
+            isDropdown={activeDropdown === "Collections"}
+            toggleMenu={toggleMenu}
+          />
         </div>
 
         <div className="social-links-container">
-          <Link to="/" className="link">
+          <Link to="/" className="link" onClick={toggleMenu}>
             <i className="fa-solid fa-circle-user"></i> <span>Sign In</span>
           </Link>
           <Link to="" className="link">

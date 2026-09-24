@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../componenets/Navbar.jsx";
 import Sidebar from "../componenets/Sidebar.jsx";
 import Hero from "../componenets/Hero.jsx";
