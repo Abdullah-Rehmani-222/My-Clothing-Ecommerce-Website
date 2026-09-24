@@ -314,8 +314,9 @@ const AdminPanel = () => {
                 className={`ap-sidebar__link ${activeSection === "products" ? "active" : ""}`}
                 onClick={() => handleSectionSwitch("products")}
               >
-                <i className="fa-solid fa-box-open"></i> All Products
+                <i className="fa-solid fa-box-open"></i> All Products 
               </button>
+              <div className="ap-sidebar__total-counter-container"><span className="ap-sidebar__total-counter">{statTotal}</span></div>
             </nav>
 
             <h3 className="ap-sidebar__heading ap-sidebar__heading--sub">
@@ -325,16 +326,19 @@ const AdminPanel = () => {
               <Link className="ap-sidebar__link" to="/">
                 <i className="fa-solid fa-house"></i> Home
               </Link>
-              <Link className="ap-sidebar__link" to="/">
+              <Link className="ap-sidebar__link" to="/new-arrivals">
+                <i className="fa-solid fa-fire"></i> New Arrivals
+              </Link>
+              <Link className="ap-sidebar__link" to="/men">
                 <i className="fa-solid fa-person"></i> Men's Wear
               </Link>
-              <Link className="ap-sidebar__link" to="/">
+              <Link className="ap-sidebar__link" to="/women">
                 <i className="fa-solid fa-person-dress"></i> Women's Wear
               </Link>
-              <Link className="ap-sidebar__link" to="/">
+              <Link className="ap-sidebar__link" to="/kids">
                 <i className="fa-solid fa-child"></i> Kids
               </Link>
-              <Link className="ap-sidebar__link" to="/">
+              <Link className="ap-sidebar__link" to="/collections">
                 <i className="fa-solid fa-star"></i> Collections
               </Link>
             </nav>

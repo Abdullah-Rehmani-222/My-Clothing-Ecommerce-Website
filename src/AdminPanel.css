@@ -33,7 +33,8 @@
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
 
   /* Layout */
-  --header-h: 60px; /* announcement (40px) + nav (40px) */
+  --header-h: 60px;
+  --sidebar-h: 66px;
   --sidebar-w: 260px;
   --radius: 10px;
   --transition: 0.22s ease;
@@ -73,6 +74,8 @@ button {
 .ap-header {
   padding: 12px 28px;
   background-color: var(--surface);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
 }
 
 .ap-nav {
@@ -158,8 +161,10 @@ button {
   flex-shrink: 0;
   background: var(--surface);
   border-right: 1px solid var(--border);
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
   position: fixed;
-  top: var(--header-h);
+  top: var(--sidebar-h);
   left: 0;
   bottom: 0;
   overflow-y: auto;
@@ -189,6 +194,7 @@ button {
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
+  position: relative;
 }
 
 .ap-sidebar__link {
@@ -196,6 +202,8 @@ button {
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
+  width: 170px;
+  background-color: transparent;
   border-radius: 8px;
   border: none;
   font-size: 0.88rem;
@@ -205,6 +213,7 @@ button {
     background var(--transition),
     color var(--transition);
 }
+
 .ap-sidebar__link i {
   width: 18px;
   text-align: center;
@@ -214,6 +223,26 @@ button {
 .ap-sidebar__link.active {
   background: var(--accent-light);
   color: var(--accent);
+}
+
+.ap-sidebar__total-counter-container {
+  position: absolute;
+  right: 30%;
+  top: 76.7%;
+}
+
+.ap-sidebar__total-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 /* Sidebar mobile toggle */
