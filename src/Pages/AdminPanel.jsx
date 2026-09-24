@@ -31,6 +31,7 @@ function pillClass(category) {
     WOMENSWEAR: "ap-pill--women",
     KIDSWEAR: "ap-pill--kids",
     COLLECTION: "ap-pill--col",
+    "NEW-ARRIVAL": "ap-pill--other",
   };
   return map[category] || "ap-pill--other";
 }
@@ -38,28 +39,21 @@ function pillClass(category) {
 const initialFormState = {
   title: "",
   category: "",
+  subCategory: "",
   page: "",
   price: "",
   originalPrice: "",
   sku: "",
   barcode: "",
   availability: "In Stock",
-  stockCount: "",
   descDesign: "",
   descColor: "",
   descFabric: "",
-  detailHeading: "",
-  detailBody: "",
-  sub1Heading: "",
-  sub1Body: "",
-  sub2Heading: "",
-  sub2Body: "",
+  productDetail: "",
   disclaimer: "",
   colors: "",
   sizes: "",
   fabrics: "",
-  instBadge: "",
-  instAmount: "",
 };
 
 const AdminPanel = () => {
@@ -77,10 +71,21 @@ const AdminPanel = () => {
 
   // ── 2. Form & Image Upload State ───────────────────────────────────────
   const [formData, setFormData] = useState(initialFormState);
+
+  // Main image
   const [currentImageDataUrl, setCurrentImageDataUrl] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
-  const [formMsg, setFormMsg] = useState({ text: "", isError: false });
   const fileInputRef = useRef(null);
+
+  // Sub-images (4 slots)
+  const [subImages, setSubImages] = useState(["", "", "", ""]);
+  const subRef0 = useRef(null);
+  const subRef1 = useRef(null);
+  const subRef2 = useRef(null);
+  const subRef3 = useRef(null);
+  const subFileInputRefs = [subRef0, subRef1, subRef2, subRef3];
+
+  const [formMsg, setFormMsg] = useState({ text: "", isError: false });
 
   // Toast State
   const [toast, setToast] = useState({ show: false, message: "", isError: false });
@@ -106,10 +111,15 @@ const AdminPanel = () => {
   // Handle form field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // When category changes, reset subCategory
+    if (name === "category") {
+      setFormData((prev) => ({ ...prev, [name]: value, subCategory: "" }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  // Handle Image File selection & FileReader
+  // Handle Main Image File selection & FileReader
   const handleImageFile = (file) => {
     if (!file || !file.type.startsWith("image/")) return;
     if (file.size > 5 * 1024 * 1024) {
@@ -119,6 +129,24 @@ const AdminPanel = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       setCurrentImageDataUrl(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Handle Sub-Image File selection
+  const handleSubImageFile = (file, index) => {
+    if (!file || !file.type.startsWith("image/")) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("Sub-image exceeds 5 MB limit.", true);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setSubImages((prev) => {
+        const updated = [...prev];
+        updated[index] = e.target.result;
+        return updated;
+      });
     };
     reader.readAsDataURL(file);
   };
@@ -143,9 +171,11 @@ const AdminPanel = () => {
 
   const resetImageDropZone = () => {
     setCurrentImageDataUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    setSubImages(["", "", "", ""]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    subFileInputRefs.forEach((ref) => {
+      if (ref.current) ref.current.value = "";
+    });
   };
 
   const handleFormReset = () => {
@@ -166,6 +196,9 @@ const AdminPanel = () => {
       return;
     }
 
+    // Build final sub-images array: fill empty slots with main image
+    const resolvedSubImages = subImages.map((si) => si || currentImageDataUrl);
+
     const newProduct = {
       id: genId(),
       ...formData,
@@ -174,23 +207,16 @@ const AdminPanel = () => {
       originalPrice: formData.originalPrice.trim(),
       sku: formData.sku.trim(),
       barcode: formData.barcode.trim(),
-      stockCount: formData.stockCount.trim(),
       descDesign: formData.descDesign.trim(),
       descColor: formData.descColor.trim(),
       descFabric: formData.descFabric.trim(),
-      detailHeading: formData.detailHeading.trim(),
-      detailBody: formData.detailBody.trim(),
-      sub1Heading: formData.sub1Heading.trim(),
-      sub1Body: formData.sub1Body.trim(),
-      sub2Heading: formData.sub2Heading.trim(),
-      sub2Body: formData.sub2Body.trim(),
+      productDetail: formData.productDetail.trim(),
       disclaimer: formData.disclaimer.trim(),
       colors: formData.colors.trim(),
       sizes: formData.sizes.trim(),
       fabrics: formData.fabrics.trim(),
-      instBadge: formData.instBadge.trim(),
-      instAmount: formData.instAmount.trim(),
       imageDataUrl: currentImageDataUrl,
+      subImages: resolvedSubImages,
       createdAt: Date.now(),
     };
 
@@ -240,6 +266,23 @@ const AdminPanel = () => {
     const matchCat = filterCategory === "all" || p.category === filterCategory;
     return matchPage && matchCat;
   });
+
+  // Sub-category options based on selected category
+  const getSubCategoryOptions = () => {
+    if (formData.category === "MENSWEAR" || formData.category === "WOMENSWEAR") {
+      return ["Stitched", "Unstitched", "Eastern"];
+    }
+    if (formData.category === "KIDSWEAR") {
+      return ["Boy", "Girl"];
+    }
+    if (formData.category === "COLLECTION") {
+      return ["Summer", "Winter"];
+    }
+    return [];
+  };
+
+  const subCategoryOptions = getSubCategoryOptions();
+  const showSubCategory = subCategoryOptions.length > 0;
 
   return (
     <>
@@ -314,7 +357,11 @@ const AdminPanel = () => {
                 className={`ap-sidebar__link ${activeSection === "products" ? "active" : ""}`}
                 onClick={() => handleSectionSwitch("products")}
               >
-                <i className="fa-solid fa-box-open"></i> All Products
+                <i className="fa-solid fa-box-open"></i>
+                <span style={{ flex: 1, textAlign: "left" }}>All Products</span>
+                {productsList.length > 0 && (
+                  <span className="ap-sidebar__counter">{productsList.length}</span>
+                )}
               </button>
             </nav>
 
@@ -477,11 +524,15 @@ const AdminPanel = () => {
 
               <div className="ap-card ap-card--form">
                 <form id="upload-form" onSubmit={handleFormSubmit} noValidate>
-                  {/* Image upload */}
+
+                  {/* ── Product Media ── */}
                   <div className="ap-form-group ap-form-group--full">
-                    <label className="ap-label" htmlFor="prod-image">
+                    <label className="ap-label">
                       Product Image
+                      <small> — Main image auto-fills sub-images if sub-images not uploaded</small>
                     </label>
+
+                    {/* Main drop zone */}
                     <div
                       className={`ap-image-drop ${isDragOver ? "dragover" : ""}`}
                       id="ap-image-drop"
@@ -498,12 +549,9 @@ const AdminPanel = () => {
                         onChange={(e) => handleImageFile(e.target.files[0])}
                       />
                       {!currentImageDataUrl ? (
-                        <div
-                          className="ap-image-drop__placeholder"
-                          id="image-placeholder"
-                        >
+                        <div className="ap-image-drop__placeholder" id="image-placeholder">
                           <i className="fa-solid fa-image"></i>
-                          <p>Click or drag & drop an image</p>
+                          <p>Main Image — Click or drag &amp; drop</p>
                           <span>PNG, JPG, WEBP — max 5 MB</span>
                         </div>
                       ) : (
@@ -514,6 +562,42 @@ const AdminPanel = () => {
                           alt="Preview"
                         />
                       )}
+                    </div>
+
+                    {/* Sub-images row */}
+                    <div className="ap-sub-images">
+                      {subImages.map((si, idx) => (
+                        <div key={idx} className="ap-sub-image-slot">
+                          <input
+                            type="file"
+                            id={`prod-sub-image-${idx}`}
+                            accept="image/*"
+                            ref={subFileInputRefs[idx]}
+                            style={{ display: "none" }}
+                            onChange={(e) => handleSubImageFile(e.target.files[0], idx)}
+                          />
+                          <div
+                            className="ap-sub-image-slot__drop"
+                            onClick={() => subFileInputRefs[idx].current && subFileInputRefs[idx].current.click()}
+                            title={`Click to upload Sub-image ${idx + 1}`}
+                          >
+                            {si ? (
+                              <img src={si} alt={`Sub ${idx + 1}`} />
+                            ) : currentImageDataUrl ? (
+                              <img
+                                src={currentImageDataUrl}
+                                alt={`Sub ${idx + 1} (from main)`}
+                                style={{ opacity: 0.45 }}
+                              />
+                            ) : (
+                              <>
+                                <i className="fa-solid fa-plus"></i>
+                                <span>Sub {idx + 1}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -547,17 +631,41 @@ const AdminPanel = () => {
                       onChange={handleInputChange}
                       required
                     >
-                      <option value="" disabled>
-                        Select category
-                      </option>
+                      <option value="" disabled>Select category</option>
                       <option value="MENSWEAR">MENSWEAR</option>
                       <option value="WOMENSWEAR">WOMENSWEAR</option>
                       <option value="KIDSWEAR">KIDSWEAR</option>
+                      <option value="NEW-ARRIVAL">NEW-ARRIVAL</option>
                       <option value="COLLECTION">COLLECTION</option>
                     </select>
                   </div>
 
-                  {/* Page placement */}
+                  {/* Sub-Category — conditional on category */}
+                  {showSubCategory && (
+                    <div className="ap-form-group">
+                      <label className="ap-label" htmlFor="prod-sub-category">
+                        {formData.category === "MENSWEAR" || formData.category === "WOMENSWEAR"
+                          ? "Style Type"
+                          : formData.category === "KIDSWEAR"
+                          ? "Gender"
+                          : "Season"}
+                      </label>
+                      <select
+                        className="ap-input ap-select"
+                        id="prod-sub-category"
+                        name="subCategory"
+                        value={formData.subCategory}
+                        onChange={handleInputChange}
+                      >
+                        <option value="">Select option</option>
+                        {subCategoryOptions.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Show on Page */}
                   <div className="ap-form-group">
                     <label className="ap-label" htmlFor="prod-page">
                       Show on Page <span className="req">*</span>
@@ -570,13 +678,12 @@ const AdminPanel = () => {
                       onChange={handleInputChange}
                       required
                     >
-                      <option value="" disabled>
-                        Select page
-                      </option>
+                      <option value="" disabled>Select page</option>
                       <option value="home">Home</option>
                       <option value="men">Men's Wear</option>
                       <option value="women">Women's Wear</option>
                       <option value="kids">Kids</option>
+                      <option value="new-arrival">New Arrival</option>
                       <option value="collections">Collections</option>
                     </select>
                   </div>
@@ -615,9 +722,7 @@ const AdminPanel = () => {
 
                   {/* SKU & Barcode */}
                   <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-sku">
-                      SKU
-                    </label>
+                    <label className="ap-label" htmlFor="prod-sku">SKU</label>
                     <input
                       className="ap-input"
                       type="text"
@@ -630,9 +735,7 @@ const AdminPanel = () => {
                   </div>
 
                   <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-barcode">
-                      Barcode
-                    </label>
+                    <label className="ap-label" htmlFor="prod-barcode">Barcode</label>
                     <input
                       className="ap-input"
                       type="text"
@@ -644,11 +747,9 @@ const AdminPanel = () => {
                     />
                   </div>
 
-                  {/* Availability & Stock */}
+                  {/* Availability */}
                   <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-availability">
-                      Availability
-                    </label>
+                    <label className="ap-label" htmlFor="prod-availability">Availability</label>
                     <select
                       className="ap-input ap-select"
                       id="prod-availability"
@@ -659,22 +760,6 @@ const AdminPanel = () => {
                       <option value="In Stock">In Stock</option>
                       <option value="Out of Stock">Out of Stock</option>
                     </select>
-                  </div>
-
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-stock">
-                      Stock Count
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="number"
-                      id="prod-stock"
-                      name="stockCount"
-                      value={formData.stockCount}
-                      onChange={handleInputChange}
-                      placeholder="e.g. 43"
-                      min="0"
-                    />
                   </div>
 
                   {/* Description fields */}
@@ -723,103 +808,29 @@ const AdminPanel = () => {
                     />
                   </div>
 
-                  {/* Product Detail heading & body */}
+                  {/* Product Detail — single textarea, max 100 chars */}
                   <div className="ap-form-group ap-form-group--full">
-                    <label className="ap-label" htmlFor="prod-detail-heading">
-                      Product Detail — Heading
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-detail-heading"
-                      name="detailHeading"
-                      value={formData.detailHeading}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Product Detail"
-                    />
-                  </div>
-
-                  <div className="ap-form-group ap-form-group--full">
-                    <label className="ap-label" htmlFor="prod-detail-body">
-                      Product Detail — Body
+                    <label className="ap-label" htmlFor="prod-product-detail">
+                      Product Detail <small>(max 100 characters)</small>
                     </label>
                     <textarea
                       className="ap-input ap-textarea"
-                      id="prod-detail-body"
-                      name="detailBody"
+                      id="prod-product-detail"
+                      name="productDetail"
                       rows="3"
-                      value={formData.detailBody}
+                      maxLength={100}
+                      value={formData.productDetail}
                       onChange={handleInputChange}
-                      placeholder="Crafted from premium Super Soft Blended..."
+                      placeholder="Brief product detail (max 100 characters)..."
                     ></textarea>
-                  </div>
-
-                  {/* Sub-sections */}
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-sub1-heading">
-                      Sub-section 1 — Heading
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-sub1-heading"
-                      name="sub1Heading"
-                      value={formData.sub1Heading}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Shirt"
-                    />
-                  </div>
-
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-sub1-body">
-                      Sub-section 1 — Body
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-sub1-body"
-                      name="sub1Body"
-                      value={formData.sub1Body}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Ready To Wear 1 Piece Solid Stitched Shirt."
-                    />
-                  </div>
-
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-sub2-heading">
-                      Sub-section 2 — Heading
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-sub2-heading"
-                      name="sub2Heading"
-                      value={formData.sub2Heading}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Trouser"
-                    />
-                  </div>
-
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-sub2-body">
-                      Sub-section 2 — Body
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-sub2-body"
-                      name="sub2Body"
-                      value={formData.sub2Body}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Ready To Wear Stitched Solid Trouser."
-                    />
+                    <span className="ap-char-count">
+                      {formData.productDetail.length}/100
+                    </span>
                   </div>
 
                   {/* Disclaimer */}
                   <div className="ap-form-group ap-form-group--full">
-                    <label className="ap-label" htmlFor="prod-disclaimer">
-                      Disclaimer
-                    </label>
+                    <label className="ap-label" htmlFor="prod-disclaimer">Disclaimer</label>
                     <input
                       className="ap-input"
                       type="text"
@@ -835,9 +846,7 @@ const AdminPanel = () => {
                   <div className="ap-form-group ap-form-group--full">
                     <label className="ap-label" htmlFor="prod-colors">
                       Color Swatches
-                      <small>
-                        (comma-separated hex codes, e.g. #6b7280, #111111)
-                      </small>
+                      <small>(comma-separated hex codes, e.g. #6b7280, #111111)</small>
                     </label>
                     <input
                       className="ap-input"
@@ -853,8 +862,7 @@ const AdminPanel = () => {
                   {/* Sizes */}
                   <div className="ap-form-group ap-form-group--full">
                     <label className="ap-label" htmlFor="prod-sizes">
-                      Sizes
-                      <small>(comma-separated, e.g. S, M, L, XL)</small>
+                      Sizes <small>(comma-separated, e.g. S, M, L, XL)</small>
                     </label>
                     <input
                       className="ap-input"
@@ -870,8 +878,7 @@ const AdminPanel = () => {
                   {/* Fabrics */}
                   <div className="ap-form-group ap-form-group--full">
                     <label className="ap-label" htmlFor="prod-fabrics">
-                      Fabrics
-                      <small>(comma-separated, e.g. Wash N Wear, Lawn)</small>
+                      Fabrics <small>(comma-separated, e.g. Wash N Wear, Lawn)</small>
                     </label>
                     <input
                       className="ap-input"
@@ -881,37 +888,6 @@ const AdminPanel = () => {
                       value={formData.fabrics}
                       onChange={handleInputChange}
                       placeholder="Wash N Wear"
-                    />
-                  </div>
-
-                  {/* Installments */}
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-inst-badge">
-                      Installment Badge Text
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-inst-badge"
-                      name="instBadge"
-                      value={formData.instBadge}
-                      onChange={handleInputChange}
-                      placeholder="e.g. baadmay"
-                    />
-                  </div>
-
-                  <div className="ap-form-group">
-                    <label className="ap-label" htmlFor="prod-inst-amount">
-                      Installment Amount
-                    </label>
-                    <input
-                      className="ap-input"
-                      type="text"
-                      id="prod-inst-amount"
-                      name="instAmount"
-                      value={formData.instAmount}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Rs.2,299"
                     />
                   </div>
 
@@ -965,6 +941,7 @@ const AdminPanel = () => {
                     <option value="men">Men's Wear</option>
                     <option value="women">Women's Wear</option>
                     <option value="kids">Kids</option>
+                    <option value="new-arrival">New Arrival</option>
                     <option value="collections">Collections</option>
                   </select>
                   <select
@@ -977,6 +954,7 @@ const AdminPanel = () => {
                     <option value="MENSWEAR">MENSWEAR</option>
                     <option value="WOMENSWEAR">WOMENSWEAR</option>
                     <option value="KIDSWEAR">KIDSWEAR</option>
+                    <option value="NEW-ARRIVAL">NEW-ARRIVAL</option>
                     <option value="COLLECTION">COLLECTION</option>
                   </select>
                 </div>

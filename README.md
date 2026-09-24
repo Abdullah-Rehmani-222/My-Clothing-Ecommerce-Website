@@ -1,16 +1,9 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Admin Panel Modification
+Act as a Senior React Developer, modify the adminPanel's Upload Product page and Product Details page. By modifying, I don't mean changing any CSS. I mean that:
+1. Add a "new-Arrival" option in the "Category" field and in the "Show on Page" field, in the order after "KidsWear" and before "Collections".
+2. Add another field in which options are "Stitched, Unstitched and Eastern" for Menswear, Womenswear in upload product page after the "Category" field and before the "Show on Page" field. The field must be one and have a option of these three and shown when "Menswear or WomensWear" category selected. and also when Kidswear category selected so show "Boy or Girl" option field just like meanswear and womenwear, same for collections "Summer or Winter".
+3. Add multiple sub-images fields in "productMedia" or "Product Image" field. If the owner uploads only one main image, make it for all sub-images. Don't leave sub-images empty if only one main image is uploaded.
+4. Remove the "Stock Count" field from the Upload Product page and also from productDetails page this one "🛒40 items left in stock!".
+5. Remove "Product Detail — Heading, Body" fields, "Sub-section 1 — Heading, Body" fields and "Sub-section 2 — Heading, Body" fields from upload product page and instead give a "Product Detail" field which is a text area, maximum 100 characters are allowed. Do all these changes in admin panel. and update productDetail page's Product Detail section according to given requirements.
+6. Remove "Installment Badge Text" field and "Installment Amount" field from upload product page.
+7. In Admin Panel's navigation, add a counter of uploaded products beside to the right of "All Products" text. The Style must be in circle, background color should be same like that text color and the counter itself text must be white and bold. Made it with modern design style and alignment must be equal.

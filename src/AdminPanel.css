@@ -229,6 +229,35 @@ button {
   box-shadow: var(--shadow-lg);
 }
 
+/* ── Sidebar "All Products" counter badge ── */
+.ap-sidebar__link {
+  width: 100%;
+}
+
+.ap-sidebar__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--text-muted);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+
+.ap-sidebar__link:hover .ap-sidebar__counter,
+.ap-sidebar__link.active .ap-sidebar__counter {
+  background: var(--accent);
+}
+
 /* ── Main content area ─────────────────────── */
 .ap-main {
   flex: 1;
@@ -959,4 +988,62 @@ form#upload-form {
     display: none;
   }
 
+}
+
+/* ── Sub-images strip ───────────────────────── */
+.ap-sub-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ap-sub-image-slot {
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-sub-image-slot__drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 90px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  overflow: hidden;
+  background: var(--bg);
+  transition:
+    border-color var(--transition),
+    background var(--transition);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.ap-sub-image-slot__drop:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.ap-sub-image-slot__drop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ap-sub-image-slot__drop i {
+  font-size: 1.1rem;
+}
+
+/* ── Character counter for Product Detail ── */
+.ap-char-count {
+  display: block;
+  text-align: right;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
