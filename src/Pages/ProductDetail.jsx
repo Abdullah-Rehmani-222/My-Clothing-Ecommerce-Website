@@ -19,24 +19,16 @@ const defaultFallbackProducts = [
     sku: "MN-001",
     barcode: "123456789",
     availability: "In Stock",
-    stockCount: "12",
     descDesign: "Classic Formal",
     descColor: "White & Black",
     descFabric: "Premium Wool Blend",
-    detailHeading: "Product Details",
-    detailBody: "Crafted from premium wool blend fabric, this formal suit delivers a timeless look perfect for any formal occasion.",
-    sub1Heading: "Fit & Comfort",
-    sub1Body: "Slim fit silhouette with stretch lining for all-day comfort.",
-    sub2Heading: "Care Instructions",
-    sub2Body: "Dry clean only. Do not tumble dry.",
+    productDetail: "Crafted from premium wool blend fabric for a timeless formal look.",
     disclaimer: "Color may slightly vary due to photography lighting.",
     colors: "#ffffff,#000000,#808080",
     sizes: "S,M,L,XL,XXL",
     fabrics: "Wool Blend,Polyester",
-    instBadge: "Klarna",
-    instAmount: "$15.00",
     image: mensImg1,
-    images: [mensImg1, mensImg1, mensImg1, mensImg1],
+    subImages: [mensImg1, mensImg1, mensImg1, mensImg1],
   },
   {
     id: "2",
@@ -47,24 +39,16 @@ const defaultFallbackProducts = [
     sku: "MN-002",
     barcode: "987654321",
     availability: "In Stock",
-    stockCount: "8",
     descDesign: "Business Formal",
     descColor: "Navy Blue",
     descFabric: "Italian Linen",
-    detailHeading: "Product Details",
-    detailBody: "Italian linen weave that breathes well and retains shape throughout the day.",
-    sub1Heading: "Fit & Comfort",
-    sub1Body: "Regular fit with structured shoulders.",
-    sub2Heading: "Care Instructions",
-    sub2Body: "Hand wash cold or dry clean.",
+    productDetail: "Italian linen weave that breathes well and retains shape throughout the day.",
     disclaimer: "Slight color variation possible.",
     colors: "#1a237e,#37474f,#000000",
     sizes: "M,L,XL",
     fabrics: "Italian Linen,Cotton",
-    instBadge: "Klarna",
-    instAmount: "$17.50",
     image: mensImg2,
-    images: [mensImg2, mensImg2, mensImg2, mensImg2],
+    subImages: [mensImg2, mensImg2, mensImg2, mensImg2],
   },
   {
     id: "101",
@@ -75,24 +59,16 @@ const defaultFallbackProducts = [
     sku: "WN-001",
     barcode: "111222333",
     availability: "In Stock",
-    stockCount: "10",
     descDesign: "Knit Dress",
     descColor: "Ivory",
     descFabric: "Soft Knit",
-    detailHeading: "Product Details",
-    detailBody: "A cozy ivory knit dress perfect for cool evenings and casual outings.",
-    sub1Heading: "Fit & Comfort",
-    sub1Body: "Relaxed fit with ribbed hemline.",
-    sub2Heading: "Care Instructions",
-    sub2Body: "Hand wash cold.",
+    productDetail: "A cozy ivory knit dress perfect for cool evenings and casual outings.",
     disclaimer: "Model is wearing size S.",
     colors: "#fffff0,#f5f5dc,#d3d3d3",
     sizes: "XS,S,M,L",
     fabrics: "Soft Knit,Acrylic Blend",
-    instBadge: "",
-    instAmount: "",
     image: womensImg1,
-    images: [womensImg1, womensImg1, womensImg1, womensImg1],
+    subImages: [womensImg1, womensImg1, womensImg1, womensImg1],
   },
   {
     id: "102",
@@ -103,24 +79,16 @@ const defaultFallbackProducts = [
     sku: "WN-002",
     barcode: "444555666",
     availability: "In Stock",
-    stockCount: "25",
     descDesign: "Floral Maxi",
     descColor: "Multicolor",
     descFabric: "Chiffon",
-    detailHeading: "Product Details",
-    detailBody: "Light chiffon summer maxi dress with vibrant floral print — ideal for beach days and picnics.",
-    sub1Heading: "Fit & Comfort",
-    sub1Body: "Flowy A-line silhouette.",
-    sub2Heading: "Care Instructions",
-    sub2Body: "Machine wash delicate cycle.",
+    productDetail: "Light chiffon summer maxi dress with vibrant floral print — ideal for beach days.",
     disclaimer: "Colors may vary on screen.",
     colors: "#ff6b6b,#ffd93d,#6bcb77",
     sizes: "XS,S,M,L,XL",
     fabrics: "Chiffon,Silk Blend",
-    instBadge: "Klarna",
-    instAmount: "$10.00",
     image: womensImg2,
-    images: [womensImg2, womensImg2, womensImg2, womensImg2],
+    subImages: [womensImg2, womensImg2, womensImg2, womensImg2],
   },
 ];
 
@@ -156,16 +124,21 @@ const ProductDetail = ({ count, isCount, toggleMenu, NavName, toastOn, toastClos
   }, [location.state, location.search, queryId]);
 
   // ── Build image list from product data ──
-  const images = product?.images?.length
+  // Prefer subImages (new schema), then legacy images, then fallback to main image
+  const rawImages = product?.subImages?.length
+    ? product.subImages
+    : product?.images?.length
     ? product.images
     : [
         product?.imageDataUrl || product?.image || '',
         product?.imageDataUrl || product?.image || '',
         product?.imageDataUrl || product?.image || '',
         product?.imageDataUrl || product?.image || '',
-      ].filter(Boolean)
+      ]
 
-  const finalImages = images.length > 0 ? images : ['../src/assets/mens-wear_image_01.png']
+  const finalImages = rawImages.filter(Boolean).length > 0
+    ? rawImages.filter(Boolean)
+    : ['../src/assets/mens-wear_image_01.png']
 
   // ── Build selectable options from product data ──
   const colorList = product?.colors
@@ -338,19 +311,6 @@ const ProductDetail = ({ count, isCount, toggleMenu, NavName, toastOn, toastClos
               {product?.price || '$0.00'}
             </div>
 
-            {/* Installment badge row */}
-            <div className="pd-installment">
-              <span className="pd-installment__badge" id="pd-installment-badge">
-                {product?.instBadge || ''}
-              </span>
-              <span className="pd-installment__text" id="pd-installment-text">
-                {product?.instBadge ? 'or 4 interest-free installments of' : ''}
-              </span>
-              <strong className="pd-installment__amount" id="pd-installment-amount">
-                {product?.instAmount || ''}
-              </strong>
-            </div>
-
             <hr className="pd-divider" />
 
             {/* Meta rows (SKU / Barcode / Availability) */}
@@ -369,15 +329,6 @@ const ProductDetail = ({ count, isCount, toggleMenu, NavName, toastOn, toastClos
               </div>
             </div>
 
-            {/* Stock indicator */}
-            <div className="pd-stock">
-              <i className="fa-solid fa-cart-shopping pd-stock__icon"></i>
-              <span className="pd-stock__count" id="pd-stock-count">{product?.stockCount || '-'}</span>
-              <span className="pd-stock__label" id="pd-stock-label">
-                {product?.stockCount ? 'items left in stock!' : '-'}
-              </span>
-            </div>
-
             <hr className="pd-divider" />
 
             {/* Description block */}
@@ -394,36 +345,22 @@ const ProductDetail = ({ count, isCount, toggleMenu, NavName, toastOn, toastClos
               </p>
             </div>
 
-            {/* Product detail paragraphs */}
-            <div className="pd-product-detail">
-              <h3 className="pd-product-detail__heading" id="pd-detail-heading">
-                {product?.detailHeading || 'Product Details'}
-              </h3>
-              <p className="pd-product-detail__body" id="pd-detail-body">
-                {product?.detailBody || '-'}
-              </p>
-
-              <div className="pd-product-detail__sub">
-                <h4 className="pd-product-detail__sub-heading" id="pd-sub-heading-1">
-                  {product?.sub1Heading || ''}
-                </h4>
-                <p className="pd-product-detail__sub-body" id="pd-sub-body-1">
-                  {product?.sub1Body || '-'}
+            {/* Product detail */}
+            {(product?.productDetail || product?.detailBody) && (
+              <div className="pd-product-detail">
+                <h3 className="pd-product-detail__heading" id="pd-detail-heading">
+                  Product Details
+                </h3>
+                <p className="pd-product-detail__body" id="pd-detail-body">
+                  {product?.productDetail || product?.detailBody || ''}
                 </p>
+                {product?.disclaimer && (
+                  <p className="pd-disclaimer" id="pd-disclaimer">
+                    {product.disclaimer}
+                  </p>
+                )}
               </div>
-              <div className="pd-product-detail__sub">
-                <h4 className="pd-product-detail__sub-heading" id="pd-sub-heading-2">
-                  {product?.sub2Heading || ''}
-                </h4>
-                <p className="pd-product-detail__sub-body" id="pd-sub-body-2">
-                  {product?.sub2Body || '-'}
-                </p>
-              </div>
-
-              <p className="pd-disclaimer" id="pd-disclaimer">
-                {product?.disclaimer || '-'}
-              </p>
-            </div>
+            )}
 
             <hr className="pd-divider" />
 
