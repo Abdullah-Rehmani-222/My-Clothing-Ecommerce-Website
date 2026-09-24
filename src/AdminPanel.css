@@ -199,10 +199,7 @@
   border: none;
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-muted);
-  transition:
-    background var(--transition),
-    color var(--transition);
+  background-color: transparent;
 }
 .ap-sidebar__link i {
   width: 18px;
@@ -211,7 +208,7 @@
 }
 .ap-sidebar__link:hover,
 .ap-sidebar__link.active {
-  background: var(--accent-light);
+  /* background: var(--accent-light); */
   color: var(--accent);
 }
 
@@ -230,31 +227,21 @@
 
 /* ── Sidebar "All Products" counter badge ── */
 .ap-sidebar__link {
-  width: 100%;
+  width: 90%;
 }
 
 .ap-sidebar__counter {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--text-muted);
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0;
-  margin-left: auto;
-  flex-shrink: 0;
-  transition: background var(--transition);
-}
-
-.ap-sidebar__link:hover .ap-sidebar__counter,
-.ap-sidebar__link.active .ap-sidebar__counter {
+  min-width: 21px;
+  height: 21px;
+  padding: 6px;
+  border-radius: 50%;
   background: var(--accent);
+  color: var(--surface);
+  font-size: 13px;
+  font-weight: bold;
 }
 
 /* ── Main content area ─────────────────────── */
